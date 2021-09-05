@@ -31,6 +31,16 @@ services:
     ipv4_address: 192.168.203.10
   volumes:
    - iptsergw:/etc/iptables
+ server:
+  build:
+    context: build
+    args:
+     ENVPATH: server.env
+  hostname: server
+  privileged: true
+  networks:
+   vpnser:
+    ipv4_address: 192.168.201.10
  vpncli:
   build:
     context: build
