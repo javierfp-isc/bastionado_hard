@@ -11,26 +11,28 @@ services:
   sysctls:
     net.ipv4.ip_forward: 1
   networks:
-   vpnser:
-    ipv4_address: 192.168.201.200
+   lanser:
+    ipv4_address: 192.168.201.100
   volumes:
    - iptvpnser:/etc/iptables
- sergw:
+ gwser:
   build:
     context: build
     args:
-     ENVPATH: sergw.env
-  hostname: sergw
+     ENVPATH: gwser.env
+  hostname: gwser
   privileged: true
   sysctls:
     net.ipv4.ip_forward: 1
   networks:
-   vpnser:
-    ipv4_address: 192.168.201.100
+   internet:
+    ipv4_address: 192.168.204.10
+   lanser:
+    ipv4_address: 192.168.201.10
    vpnwan:
     ipv4_address: 192.168.203.10
   volumes:
-   - iptsergw:/etc/iptables
+   - iptgwser:/etc/iptables
  server:
   build:
     context: build
@@ -39,8 +41,8 @@ services:
   hostname: server
   privileged: true
   networks:
-   vpnser:
-    ipv4_address: 192.168.201.10
+   lanser:
+    ipv4_address: 192.168.201.50
  vpncli:
   build:
     context: build
@@ -51,26 +53,28 @@ services:
   sysctls:
     net.ipv4.ip_forward: 1
   networks:
-   vpncli:
-    ipv4_address: 192.168.202.200
+   lancli:
+    ipv4_address: 192.168.202.100
   volumes:
    - iptvpncli:/etc/iptables
- cligw:
+ gwcli:
   build:
     context: build
     args:
-     ENVPATH: cligw.env
-  hostname: cligw
+     ENVPATH: gwcli.env
+  hostname: gwcli
   privileged: true
   sysctls:
     net.ipv4.ip_forward: 1
   networks:
-   vpncli:
-    ipv4_address: 192.168.202.100
+   internet:
+    ipv4_address: 192.168.204.20
+   lancli:
+    ipv4_address: 192.168.202.20
    vpnwan:
     ipv4_address: 192.168.203.20
   volumes:
-   - iptcligw:/etc/iptables
+   - iptgwcli:/etc/iptables
  work:
   build:
     context: build
@@ -79,20 +83,20 @@ services:
   hostname: work
   privileged: true
   networks:
-   vpncli:
-    ipv4_address: 192.168.202.10
+   lancli:
+    ipv4_address: 192.168.202.50
 networks:
-  vpnser:
+  lanser:
     driver: bridge
     driver_opts:
-     com.docker.network.bridge.name: hard_vpnser
+     com.docker.network.bridge.name: hard_lanser
     ipam:
      config:
        - subnet: 192.168.201.0/24
-  vpncli:
+  lancli:
     driver: bridge
     driver_opts:
-     com.docker.network.bridge.name: hard_vpncli
+     com.docker.network.bridge.name: hard_lancli
     ipam:
      config:
        - subnet: 192.168.202.0/24
@@ -103,8 +107,15 @@ networks:
     ipam:
      config:
        - subnet: 192.168.203.0/24
+  internet:
+    driver: bridge
+    driver_opts:
+     com.docker.network.bridge.name: hard_internet
+    ipam:
+     config:
+       - subnet: 192.168.204.0/24
 volumes:
  iptvpnser:
  iptvpncli:
- iptsergw:
- iptcligw:
+ iptgwser:
+ iptgwcli:

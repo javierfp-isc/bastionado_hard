@@ -10,6 +10,9 @@ echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 #Cargamos iptables almacenadas
 [ -f /etc/iptables/rules.v4 ] && iptables-restore < /etc/iptables/rules.v4
 
+#Arrancamos openvpn
+[ -f /etc/init.d/openvpn ] && service openvpn start
+
 #Uso exec para lanzar un proceso independiente de bucle infinito
 exec bash -c "while true;do sleep 10;done"
 
