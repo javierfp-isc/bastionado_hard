@@ -1,0 +1,100 @@
+version: '3.5'
+services:
+#Services
+ vpnser:
+  build:
+    context: build
+    args:
+     ENVPATH: vpnser.env
+  hostname: vpnser
+  privileged: true
+  sysctls:
+    net.ipv4.ip_forward: 1
+  networks:
+   vpnser:
+    ipv4_address: 192.168.201.200
+  volumes:
+   - iptvpnser:/etc/iptables
+ sergw:
+  build:
+    context: build
+    args:
+     ENVPATH: sergw.env
+  hostname: sergw
+  privileged: true
+  sysctls:
+    net.ipv4.ip_forward: 1
+  networks:
+   vpnser:
+    ipv4_address: 192.168.201.100
+   vpnwan:
+    ipv4_address: 192.168.203.10
+  volumes:
+   - iptsergw:/etc/iptables
+ vpncli:
+  build:
+    context: build
+    args:
+     ENVPATH: vpncli.env
+  hostname: vpncli
+  privileged: true
+  sysctls:
+    net.ipv4.ip_forward: 1
+  networks:
+   vpncli:
+    ipv4_address: 192.168.202.200
+  volumes:
+   - iptvpncli:/etc/iptables
+ cligw:
+  build:
+    context: build
+    args:
+     ENVPATH: cligw.env
+  hostname: cligw
+  privileged: true
+  sysctls:
+    net.ipv4.ip_forward: 1
+  networks:
+   vpncli:
+    ipv4_address: 192.168.202.100
+   vpnwan:
+    ipv4_address: 192.168.203.20
+  volumes:
+   - iptcligw:/etc/iptables
+ work:
+  build:
+    context: build
+    args:
+     ENVPATH: work.env
+  hostname: work
+  privileged: true
+  networks:
+   vpncli:
+    ipv4_address: 192.168.202.10
+networks:
+  vpnser:
+    driver: bridge
+    driver_opts:
+     com.docker.network.bridge.name: hard_vpnser
+    ipam:
+     config:
+       - subnet: 192.168.201.0/24
+  vpncli:
+    driver: bridge
+    driver_opts:
+     com.docker.network.bridge.name: hard_vpncli
+    ipam:
+     config:
+       - subnet: 192.168.202.0/24
+  vpnwan:
+    driver: bridge
+    driver_opts:
+     com.docker.network.bridge.name: hard_vpnwan
+    ipam:
+     config:
+       - subnet: 192.168.203.0/24
+volumes:
+ iptvpnser:
+ iptvpncli:
+ iptsergw:
+ iptcligw:
