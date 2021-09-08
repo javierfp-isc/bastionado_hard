@@ -1,20 +1,6 @@
 version: '3.5'
 services:
 #Services
- vpnser:
-  build:
-    context: build
-    args:
-     ENVPATH: vpnser.env
-  hostname: vpnser
-  privileged: true
-  sysctls:
-    net.ipv4.ip_forward: 1
-  networks:
-   lanser:
-    ipv4_address: 192.168.201.100
-  volumes:
-   - iptvpnser:/etc/iptables
  gwser:
   build:
     context: build
@@ -67,24 +53,12 @@ services:
   sysctls:
     net.ipv4.ip_forward: 1
   networks:
-   internet:
-    ipv4_address: 192.168.204.20
    lancli:
     ipv4_address: 192.168.202.20
    vpnwan:
     ipv4_address: 192.168.203.20
   volumes:
    - iptgwcli:/etc/iptables
- work:
-  build:
-    context: build
-    args:
-     ENVPATH: work.env
-  hostname: work
-  privileged: true
-  networks:
-   lancli:
-    ipv4_address: 192.168.202.50
 networks:
   lanser:
     driver: bridge
@@ -115,7 +89,6 @@ networks:
      config:
        - subnet: 192.168.204.0/24
 volumes:
- iptvpnser:
  iptvpncli:
  iptgwser:
  iptgwcli:

@@ -1,5 +1,5 @@
 PROJECT="hard"
-SERVICES=vpnser sergw vpncli cligw work
+SERVICES=vpncli gwser gwcli server
 
 #Targets principales
 install:
