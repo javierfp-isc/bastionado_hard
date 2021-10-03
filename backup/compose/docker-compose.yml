@@ -16,8 +16,25 @@ services:
    - /sys/fs/cgroup:/sys/fs/cgroup:ro
    - /lib/modules:/lib/modules
   networks:
-   net:
+   lan:
     ipv4_address: 192.168.60.10
+ backupcliext:
+  build:
+    context: build
+    args:
+     ENVPATH: backupcliext.env
+  hostname: backupcliext
+  privileged: true
+  tmpfs:
+   - /run
+   - /run/lock
+   - /tmp
+  volumes:
+   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+   - /lib/modules:/lib/modules
+  networks:
+   wan:
+    ipv4_address: 192.168.61.10
  urbackup:
   build:
     context: build
@@ -33,14 +50,42 @@ services:
    - /sys/fs/cgroup:/sys/fs/cgroup:ro
    - /lib/modules:/lib/modules
   networks:
-   net:
-    ipv4_address: 192.168.60.100  
+   lan:
+    ipv4_address: 192.168.60.100
+ gw:
+  build:
+    context: build
+    args:
+     ENVPATH: gw.env
+  hostname: gw
+  sysctls:
+    net.ipv4.ip_forward: 1
+  privileged: true 
+  tmpfs:
+   - /run
+   - /run/lock
+   - /tmp
+  volumes:
+   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+   - /lib/modules:/lib/modules
+  networks:
+   lan:
+    ipv4_address: 192.168.60.200
+   wan:
+    ipv4_address: 192.168.61.200  
 networks:
-  net:
+  lan:
     driver: bridge
     driver_opts:
-     com.docker.network.bridge.name: backup_net
+     com.docker.network.bridge.name: backup_lan
     ipam:
      config:
        - subnet: 192.168.60.0/24
+  wan:
+    driver: bridge
+    driver_opts:
+     com.docker.network.bridge.name: backup_wan
+    ipam:
+     config:
+       - subnet: 192.168.61.0/24
 
