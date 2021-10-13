@@ -8,5 +8,5 @@ El repositorio consta de los siguentes escenarios
 
 ## Instrucciones de uso
 
-[Instrucciones](https://github.com/javierfp-isc/bastionado)
+[Instrucciones](https://javierfp-isc.github.io/bastionado/)
 
