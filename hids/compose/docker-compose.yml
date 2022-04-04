@@ -30,7 +30,7 @@ services:
      ENVPATH: splunk.env
   hostname: splunk
   volumes:
-   - splunk:/var/splunk
+   - splunk:/opt/splunk
   networks:
    hids:
     ipv4_address: 192.168.80.20
