@@ -1,0 +1,48 @@
+version: '3.5'
+services:
+#Services
+ ossec-server:
+  build:
+    context: build
+    args:
+     ENVPATH: ossec-server.env
+  hostname: ossec-server
+  volumes:
+   - ossec-server:/var/ossec
+  networks:
+   hids:
+    ipv4_address: 192.168.80.100
+ ossec-agent:
+  build:
+    context: build
+    args:
+     ENVPATH: ossec-agent.env
+  hostname: ossec-agent
+  volumes:
+   - ossec-agent:/var/ossec
+  networks:
+   hids:
+    ipv4_address: 192.168.80.10
+ splunk:
+  build:
+    context: build
+    args:
+     ENVPATH: splunk.env
+  hostname: splunk
+  volumes:
+   - splunk:/var/splunk
+  networks:
+   hids:
+    ipv4_address: 192.168.80.20
+volumes:
+ ossec-server:
+ ossec-agent:
+ splunk:
+networks:
+  hids:
+    driver: bridge
+    driver_opts:
+     com.docker.network.bridge.name: hard_hids
+    ipam:
+     config:
+       - subnet: 192.168.80.0/24
