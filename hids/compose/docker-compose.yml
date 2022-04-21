@@ -33,11 +33,23 @@ services:
    - splunk:/opt/splunk
   networks:
    hids:
+    ipv4_address: 192.168.80.200
+ splunk-forwarder:
+  build:
+    context: build
+    args:
+     ENVPATH: splunk-forwarder.env
+  hostname: splunk-forwarder
+  volumes:
+   - splunk-forwarder:/opt/splunkforwarder
+  networks:
+   hids:
     ipv4_address: 192.168.80.20
 volumes:
  ossec-server:
  ossec-agent:
  splunk:
+ splunk-forwarder:
 networks:
   hids:
     driver: bridge

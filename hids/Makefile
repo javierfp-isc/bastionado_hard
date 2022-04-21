@@ -1,5 +1,5 @@
 PROJECT="hard"
-SERVICES=ossec-agent ossec-server splunk
+SERVICES=ossec-agent ossec-server splunk splunk-forwarder
 
 #Targets principales
 install:
