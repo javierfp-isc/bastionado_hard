@@ -1,0 +1,20 @@
+version: '3.5'
+services:
+#Services
+ hardening:
+  build:
+    context: build
+    args:
+     ENVPATH: hardening.env
+  hostname: hardening
+  networks:
+   basico:
+    ipv4_address: 192.168.81.10
+networks:
+  basico:
+    driver: bridge
+    driver_opts:
+     com.docker.network.bridge.name: hard_basico
+    ipam:
+     config:
+       - subnet: 192.168.81.0/24
