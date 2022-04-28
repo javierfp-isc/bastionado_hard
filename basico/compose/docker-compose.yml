@@ -7,6 +7,7 @@ services:
     args:
      ENVPATH: hardening.env
   hostname: hardening
+  privileged: true
   networks:
    basico:
     ipv4_address: 192.168.81.10
