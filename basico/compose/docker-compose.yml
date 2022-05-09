@@ -11,6 +11,8 @@ services:
   networks:
    basico:
     ipv4_address: 192.168.81.10
+  volumes:
+   - /var/log/syslog:/var/log/syslog
 networks:
   basico:
     driver: bridge
