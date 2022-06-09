@@ -3,7 +3,7 @@ FROM debian:bullseye
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-LABEL distribucion="Ubuntu 20.04"
+LABEL distribucion="Debian"
 LABEL maintainer=javierfp@iessanclemente.net
 
 #Argumento tomado del docker-compose.yml para seleccionar el archivo .env->envfile

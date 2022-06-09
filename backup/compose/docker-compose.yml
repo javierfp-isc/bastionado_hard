@@ -7,7 +7,8 @@ services:
     args:
      ENVPATH: backupcli.env
   hostname: backupcli
-  privileged: true
+  cap_add:
+  - ALL
   tmpfs:
    - /run
    - /run/lock
@@ -24,7 +25,8 @@ services:
     args:
      ENVPATH: backupcliext.env
   hostname: backupcliext
-  privileged: true
+  cap_add:
+  - ALL
   tmpfs:
    - /run
    - /run/lock
@@ -41,7 +43,8 @@ services:
     args:
      ENVPATH: urbackup.env
   hostname: urbackup
-  privileged: true
+  cap_add:
+  - ALL
   tmpfs:
    - /run
    - /run/lock
@@ -60,7 +63,8 @@ services:
   hostname: gw
   sysctls:
     net.ipv4.ip_forward: 1
-  privileged: true 
+  cap_add:
+  - ALL 
   tmpfs:
    - /run
    - /run/lock
