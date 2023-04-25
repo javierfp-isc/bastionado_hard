@@ -9,13 +9,13 @@ services:
   hostname: backupcli
   cap_add:
   - ALL
-  tmpfs:
-   - /run
-   - /run/lock
-   - /tmp
-  volumes:
-   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-   - /lib/modules:/lib/modules
+#  tmpfs:
+#   - /run
+#   - /run/lock
+#   - /tmp
+#  volumes:
+#   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#   - /lib/modules:/lib/modules
   networks:
    lan:
     ipv4_address: 192.168.60.10
@@ -27,13 +27,13 @@ services:
   hostname: backupcliext
   cap_add:
   - ALL
-  tmpfs:
-   - /run
-   - /run/lock
-   - /tmp
-  volumes:
-   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-   - /lib/modules:/lib/modules
+#  tmpfs:
+#   - /run
+#   - /run/lock
+#   - /tmp
+#  volumes:
+#   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#   - /lib/modules:/lib/modules
   networks:
    wan:
     ipv4_address: 192.168.61.10
@@ -45,13 +45,13 @@ services:
   hostname: urbackup
   cap_add:
   - ALL
-  tmpfs:
-   - /run
-   - /run/lock
-   - /tmp
-  volumes:
-   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-   - /lib/modules:/lib/modules
+#  tmpfs:
+#   - /run
+#   - /run/lock
+#   - /tmp
+#  volumes:
+#   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#   - /lib/modules:/lib/modules
   networks:
    lan:
     ipv4_address: 192.168.60.100
@@ -65,13 +65,13 @@ services:
     net.ipv4.ip_forward: 1
   cap_add:
   - ALL 
-  tmpfs:
-   - /run
-   - /run/lock
-   - /tmp
-  volumes:
-   - /sys/fs/cgroup:/sys/fs/cgroup:ro
-   - /lib/modules:/lib/modules
+#  tmpfs:
+#   - /run
+#   - /run/lock
+#   - /tmp
+#  volumes:
+#   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#   - /lib/modules:/lib/modules
   networks:
    lan:
     ipv4_address: 192.168.60.200
