@@ -1,10 +1,9 @@
-#FROM jrei/systemd-ubuntu
 FROM debian:bullseye
 
 ENV TERM xterm
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-LABEL distribucion="Ubuntu urbackup"
+LABEL distribucion="Debian urbackup"
 LABEL maintainer=javierfp@iessanclemente.net
 
 #Argumento tomado del docker-compose.yml para seleccionar el archivo .env->envfile
