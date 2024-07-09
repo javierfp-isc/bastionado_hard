@@ -1,4 +1,3 @@
-version: '3.5'
 services:
 #Services
  hardening:
@@ -7,6 +6,9 @@ services:
     args:
      ENVPATH: hardening.env
   hostname: hardening
+  volumes:
+  - /sys:/sys:ro
+  - security:/sys/kernel/security:rw
   cap_add:
   - ALL
   networks:
@@ -20,3 +22,5 @@ networks:
     ipam:
      config:
        - subnet: 192.168.81.0/24
+volumes:
+ security:
